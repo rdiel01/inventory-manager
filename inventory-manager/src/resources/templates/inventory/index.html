@@ -19,12 +19,14 @@
 
 </nav>
 
-<ul>
-    <li th:each="menu : ${menus}">
-        <a th:href="'/menu/view/'+${menu.id}" th:text="${menu.name}"></a>
-    </li>
-</ul>
-<a href="/menu/add">Add Menu</a>
+<table class="table">
+    <tr>
+        <td>Item name</td>
+        <td>Quantity</td>
+        <td>Minimum</td>
+        <td>Maximum</td>
+    </tr>
+</table>
 
 </body>
 </html>
