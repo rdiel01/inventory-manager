@@ -1,22 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head >
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Inventory Manager</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-</head>
+<head th:replace="fragments :: head"></head>
 
 <body class="container">
 
-<h1 th:text="${title}">Inventory Manager</h1>
+<h1 th:text="${title}"></h1>
 
+<nav th:replace = "fragments :: navigation"> </nav>
 <nav>
-    <a href="/inventory">Inventory</a> |
-    <a href="/order">Order</a> |
-    <a href="/add">Add</a>
-
+    <a href="/inventory/add">Add</a>
 </nav>
 
 <table class="table">
