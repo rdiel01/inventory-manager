@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace = "fragments :: navigation"> </nav>
+<nav>
+    <a href="/order/create">Create new order</a>
+</nav>
+
+<ul>
+    <li th:each="order : ${orders}">
+        <a th:href="'/order/view/'+${order.id}" th:text="${order.name}"></a>
+    </li>
+</ul>
+
+</body>
+</html>

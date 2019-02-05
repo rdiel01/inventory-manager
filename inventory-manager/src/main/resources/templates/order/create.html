@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace = "fragments :: navigation"> </nav>
+
+<form method="post" style="max-width:600;" th:object="${order}">
+    <div class="form-group">
+    <input class="form-control" th:field="*{name}"/>
+    <span th:errors="*{name}" class="error"></span>
+    </div>
+
+    <input type="submit" value="Create Order"/>
+</form>
+
+</body>
+</html>
