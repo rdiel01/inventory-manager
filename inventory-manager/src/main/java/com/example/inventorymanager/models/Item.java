@@ -3,8 +3,11 @@ package com.example.inventorymanager.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name="items")
 public class Item {
 
     @Id
@@ -15,8 +18,6 @@ public class Item {
     @Size(min=3, max=50)
     private String name;
 
-    private String description;
-
     @NotNull
     private Integer quantity;
 
@@ -26,8 +27,11 @@ public class Item {
     @NotNull
     private Integer maximum;
 
-    @ManyToOne
-    private Category category;
+    private String description;
+
+    @OneToMany
+    @JoinColumn (name = "item_id")
+    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
 
     public Item(String name, String description, Integer quantity, Integer minimum, Integer maximum) {
         this.name = name;
