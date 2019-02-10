@@ -24,14 +24,15 @@ public class OrderItem {
     @ManyToOne
     private Order order;
 
-    public OrderItem() {
+    public OrderItem() { }
+
+    public OrderItem(Order order, Item item, Integer orderQty ) {
+        this.order = order;
+        this.item = item;
+        this.orderQty = orderQty;
     }
 
-    public OrderItem(Integer orderQty, Item item, Order order) {
-        this.orderQty = orderQty;
-        this.item = item;
-        this.order = order;
-    }
+    public int getId() {return id;}
 
     public Item getItem() {
         return item;
