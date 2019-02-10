@@ -28,8 +28,10 @@ public class Order {
 
     public Order() {}
 
-    public int getId() {
-        return id;
+    public int getId() { return id; }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -40,7 +42,11 @@ public class Order {
         this.name = name;
     }
 
-    public List getItems(){ return orderItems;}
+    public List getOrderItems(){
+        return orderItems;
+    }
 
-    public void addItem(OrderItem item){ orderItems.add(item);}
+    public void setOrderItem(OrderItem item){
+        orderItems.add(item);
+    }
 }
