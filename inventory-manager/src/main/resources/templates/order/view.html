@@ -17,7 +17,18 @@
 
     <tr th:each="orderItem : ${orderItems}">
         <td th:text="${orderItem.item.name}"></td>
-        <td th:text="${orderItem.orderQty}"></td>
+        <!--<td th:text="${orderItem.orderQty}"></td>-->
+        <td>
+            <form method="post" th:action="'/order/update-item/'+${orderItem.id}+'/'">
+                <input th:name="orderItemQty" th:value="${orderItem.orderQty}"/>
+                <input type="submit" value="Update"/>
+            </form>
+        </td>
+        <td>
+            <form method="post" th:action="'order/remove-item/'+${orderItem.id}+'/'">
+                <input type="submit" th:value="Remove"/>
+            </form>
+        </td>
     </tr>
 </table>
 
