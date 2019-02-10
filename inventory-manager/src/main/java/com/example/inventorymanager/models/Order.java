@@ -2,7 +2,6 @@ package com.example.inventorymanager.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -25,8 +24,7 @@ public class Order {
 //    private Date receivedDate;
 
     @OneToMany
-    @JoinColumn(name = "order_id")
-    public List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    public List<OrderItem> orderItems;
 
     public Order() {}
 
