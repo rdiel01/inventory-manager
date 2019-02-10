@@ -62,7 +62,7 @@ public class OrderController {
         Order order = orderDao.findOne(orderId);
         model.addAttribute("title", order.getName());
         model.addAttribute("order",order);
-        model.addAttribute("items", order.getItems());
+        model.addAttribute("orderItems", order.getOrderItems());
         return "order/view";
     }
 
@@ -70,7 +70,7 @@ public class OrderController {
     public String addItem(Model model, @PathVariable int orderId) {
 
         Order order = orderDao.findOne(orderId);
-        AddOrderItemForm form = new AddOrderItemForm(order,itemDao.findAll());
+        AddOrderItemForm form = new AddOrderItemForm(itemDao.findAll(), order);
         model.addAttribute("title","Add item to order: "+ order.getName());
         model.addAttribute("form", form);
         return "order/add-item";
@@ -78,14 +78,17 @@ public class OrderController {
 
     @RequestMapping(value ="add-item", method = RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddOrderItemForm form, Errors errors) {
+
         if(errors.hasErrors()) {
             model.addAttribute("form", form);
             return "order/add-item";
         }
-        Item item = itemDao.findOne(form.getItemId());
         Order order = orderDao.findOne(form.getOrderId());
-        OrderItem orderItem = new OrderItem(form.getQty(),item, order);
-        order.addItem(orderItem);
+        Item item = itemDao.findOne(form.getItemId());
+        Integer qty = form.getOrderQuantity();
+        OrderItem orderItem = new OrderItem(order, item, qty);
+        order.setOrderItem(orderItem);
+        orderItemDao.save(orderItem);
         orderDao.save(order);
 
         return "redirect:view/" + order.getId();
