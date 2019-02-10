@@ -9,11 +9,19 @@
 <nav th:replace="fragments :: navigation"></nav>
 <a th:href="'/order/'+${order.id}+'/add-item/'">Add item</a>
 
-<ul>
-    <li th:each="orderItem : ${orderItems}" th:text="${orderItem.item.name}"></li>
-</ul>
+<table class="table">
+    <tr>
+        <th>Item</th>
+        <th>Quantity</th>
+    </tr>
 
-<p th:unless="${items.size()}"><i>Order is empty. Add and item to this order.</i></p>
+    <tr th:each="orderItem : ${orderItems}">
+        <td th:text="${orderItem.item.name}"></td>
+        <td th:text="${orderItem.orderQty}"></td>
+    </tr>
+</table>
+
+<p th:unless="${orderItems.size()}"><i>This order is empty. <a th:href="'/order/'+${order.id}+'/add-item/'">Add </a> an item to this order.</i></p>
 
 </body>
 </html>
