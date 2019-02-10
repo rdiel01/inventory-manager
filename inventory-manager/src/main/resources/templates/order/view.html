@@ -10,7 +10,7 @@
 <a th:href="'/order/'+${order.id}+'/add-item/'">Add item</a>
 
 <ul>
-    <li th:each="item : ${items}" th:text="${item.name}"></li>
+    <li th:each="orderItem : ${orderItems}" th:text="${orderItem.item.name}"></li>
 </ul>
 
 <p th:unless="${items.size()}"><i>Order is empty. Add and item to this order.</i></p>
