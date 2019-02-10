@@ -30,8 +30,7 @@ public class Item {
     private String description;
 
     @OneToMany
-    @JoinColumn (name = "item_id")
-    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    private List<OrderItem> orderItems;
 
     public Item(String name, String description, Integer quantity, Integer minimum, Integer maximum) {
         this.name = name;
