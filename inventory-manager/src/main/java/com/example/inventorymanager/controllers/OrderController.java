@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -95,4 +92,15 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "update-item", method = RequestMethod.POST)
+    public String updateOrderItem(@RequestParam(value = "orderItemQty") Integer orderItemQty,
+            @RequestParam(value = "orderItemId") int orderItemId,
+            @RequestParam(value = "orderId") int orderId) {
+
+        OrderItem orderItem = orderItemDao.findOne(orderItemId);
+        orderItem.setOrderQty(orderItemQty);
+        orderItemDao.save(orderItem);
+
+        return "redirect:view/" + orderId;
+    }
 }
