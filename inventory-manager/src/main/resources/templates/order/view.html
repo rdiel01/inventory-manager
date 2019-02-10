@@ -19,8 +19,10 @@
         <td th:text="${orderItem.item.name}"></td>
         <!--<td th:text="${orderItem.orderQty}"></td>-->
         <td>
-            <form method="post" th:action="'/order/update-item/'+${orderItem.id}+'/'">
+            <form method="post" action="/order/update-item">
                 <input th:name="orderItemQty" th:value="${orderItem.orderQty}"/>
+                <input type="hidden" name="orderItemId" th:value="${orderItem.id}"/>
+                <input type="hidden" name="orderId" th:value="${orderItem.order.id}"/>
                 <input type="submit" value="Update"/>
             </form>
         </td>
