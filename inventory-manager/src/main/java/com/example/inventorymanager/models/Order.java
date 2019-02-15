@@ -49,4 +49,8 @@ public class Order {
     public void setOrderItem(OrderItem item){
         orderItems.add(item);
     }
+
+    public void removeOrderItem(OrderItem item){
+        orderItems.remove(item);
+    }
 }

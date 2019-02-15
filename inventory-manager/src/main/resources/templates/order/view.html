@@ -27,8 +27,10 @@
             </form>
         </td>
         <td>
-            <form method="post" th:action="'order/remove-item/'+${orderItem.id}+'/'">
-                <input type="submit" th:value="Remove"/>
+            <form method="post" action="/order/remove-item">
+                <input type="hidden" name="orderItemId" th:value="${orderItem.id}"/>
+                <input type="hidden" name="orderId" th:value="${orderItem.order.id}"/>
+                <input type="submit" value="Remove"/>
             </form>
         </td>
     </tr>
