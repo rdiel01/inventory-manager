@@ -103,4 +103,17 @@ public class OrderController {
 
         return "redirect:view/" + orderId;
     }
+
+    @RequestMapping(value = "remove-item", method =RequestMethod.POST)
+    public String removeOrderItem(@RequestParam(value = "orderItemId") int orderItemId,
+                                  @RequestParam(value = "orderId") int orderId) {
+        Order order = orderDao.findOne(orderId);
+        OrderItem orderItem = orderItemDao.findOne(orderItemId);
+        order.removeOrderItem(orderItem);
+        orderDao.save(order);
+        orderItemDao.delete(orderItemId);
+
+        return "redirect:view/" + orderId;
+    }
+
 }
