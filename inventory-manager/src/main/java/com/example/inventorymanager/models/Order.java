@@ -16,6 +16,8 @@ public class Order {
     @NotNull
     public String name;
 
+    public Boolean active = Boolean.TRUE;
+
 //    @GeneratedValue
 //    private Date createDate;
 //
@@ -26,9 +28,12 @@ public class Order {
     @OneToMany
     public List<OrderItem> orderItems;
 
-    public Order() {}
+    public Order() {
+    }
 
-    public int getId() { return id; }
+    public int getId() {
+        return id;
+    }
 
     public void setId(int id) {
         this.id = id;
@@ -42,15 +47,24 @@ public class Order {
         this.name = name;
     }
 
-    public List getOrderItems(){
+    public List getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItem(OrderItem item){
+    public void setOrderItem(OrderItem item) {
         orderItems.add(item);
     }
 
-    public void removeOrderItem(OrderItem item){
+    public void removeOrderItem(OrderItem item) {
         orderItems.remove(item);
+    }
+
+    public void deactivate() {
+        this.active = Boolean.FALSE;
+
+    }
+
+    public Boolean orderStatus() {
+        return this.active;
     }
 }
