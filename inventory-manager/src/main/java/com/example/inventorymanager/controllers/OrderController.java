@@ -12,9 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("order")
@@ -31,8 +31,16 @@ public class OrderController {
 
     @RequestMapping(value="")
     public String index(Model model) {
+        //List<Order> orders = (List<Order>) orderDao.findAll();
+        ArrayList<Order> orders = new ArrayList<Order>();
+        for (Order order:orderDao.findAll()) {
+            if (order.getStatus()){
+                orders.add(order);
+            }
+        }
+
         model.addAttribute("title", "View Orders");
-        model.addAttribute("orders",orderDao.findAll());
+        model.addAttribute("orders",orders);
         //arraylist of items with qty <= minimum
         //model.addAttribut("html item object","that arraylist")
         return "order/index";
@@ -129,6 +137,7 @@ public class OrderController {
             itemDao.save(item);
         }
         order.deactivate();
+        orderDao.save(order);
         return "redirect:/inventory";
     }
 
