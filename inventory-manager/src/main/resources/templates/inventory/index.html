@@ -14,7 +14,7 @@
 <table class="table">
     <tr>
         <th>Item name</th>
-        <th>Description</th>
+        <!--<th>Description</th>-->
         <th>Quantity</th>
         <th>Minimum</th>
         <th>Maximum</th>
@@ -22,7 +22,7 @@
 
     <tr th:each="item : ${items}">
         <td th:text="${item.name}"></td>
-        <td th:text="${item.description}">n/a</td>
+        <!--<td th:text="${item.description}">n/a</td>-->
         <td th:text="${item.quantity}"></td>
         <td th:text="${item.minimum}"></td>
         <td th:text="${item.maximum}"></td>
