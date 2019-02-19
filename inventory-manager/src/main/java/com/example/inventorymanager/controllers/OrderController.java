@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -114,6 +115,21 @@ public class OrderController {
         orderItemDao.delete(orderItemId);
 
         return "redirect:view/" + orderId;
+    }
+
+    @RequestMapping(value = "receive-order", method = RequestMethod.POST)
+    public String receiveOrder(@RequestParam(value = "orderId") int orderId) {
+        Order order = orderDao.findOne(orderId);
+        Item item;
+        //should be handled by a model
+        for (OrderItem orderItem : order.orderItems) {
+            item = orderItem.getItem();
+            Integer newQuantity = orderItem.getOrderQty() + item.getQuantity();
+            item.setQuantity(newQuantity);
+            itemDao.save(item);
+        }
+        order.deactivate();
+        return "redirect:/inventory";
     }
 
 }
