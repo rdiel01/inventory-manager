@@ -36,6 +36,11 @@
     </tr>
 </table>
 
+<form th:if="${orderItems.size()}" method="post" action="/order/receive-order">
+    <input type="hidden" name="orderId" th:value="${order.id}"/>
+    <input type="submit" value="Add Order to Inventory"/>
+</form>
+
 <p th:unless="${orderItems.size()}"><i>This order is empty. <a th:href="'/order/'+${order.id}+'/add-item/'">Add </a> an item to this order.</i></p>
 
 </body>
