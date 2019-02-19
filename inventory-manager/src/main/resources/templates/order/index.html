@@ -17,5 +17,7 @@
     </li>
 </ul>
 
+<p th:unless="${orders.size()}"><i>No active orders. <a href="/order/create">Create </a> a new order.</i></p>
+
 </body>
 </html>
