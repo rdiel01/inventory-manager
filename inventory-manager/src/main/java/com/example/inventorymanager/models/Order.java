@@ -16,7 +16,7 @@ public class Order {
     @NotNull
     public String name;
 
-    public Boolean active = Boolean.TRUE;
+    public Boolean status = Boolean.TRUE;
 
 //    @GeneratedValue
 //    private Date createDate;
@@ -60,11 +60,11 @@ public class Order {
     }
 
     public void deactivate() {
-        this.active = Boolean.FALSE;
+        this.status = Boolean.FALSE;
 
     }
 
-    public Boolean orderStatus() {
-        return this.active;
+    public Boolean getStatus() {
+        return this.status;
     }
 }
