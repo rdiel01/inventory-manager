@@ -141,4 +141,20 @@ public class OrderController {
         return "redirect:/inventory";
     }
 
+    @RequestMapping(value="autofill", method = RequestMethod.POST)
+    public String autofillOrder(@RequestParam(value= "orderId") int orderId) {
+        Order order = orderDao.findOne(orderId);
+
+        for (Item item : itemDao.findAll()) {
+            if (item.getMinimum() >= item.getQuantity()) {
+                Integer qty = item.getMaximum() - item.getQuantity();
+                OrderItem orderItem = new OrderItem(order, item, qty);
+                orderItemDao.save(orderItem);
+                order.setOrderItem(orderItem);
+                orderDao.save(order);
+            }
+        }
+        return "redirect:view/" + orderId;
+    }
+
 }
