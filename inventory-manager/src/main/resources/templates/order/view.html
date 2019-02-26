@@ -43,5 +43,10 @@
 
 <p th:unless="${orderItems.size()}"><i>This order is empty. <a th:href="'/order/'+${order.id}+'/add-item/'">Add </a> an item to this order.</i></p>
 
+<form th:unless="${orderItems.size()}" method="post" action="/order/autofill">
+    <input type="hidden" name="orderId" th:value="${order.id}"/>
+    <input type="submit" value="Add items below minimum value"/>
+</form>
+
 </body>
 </html>
