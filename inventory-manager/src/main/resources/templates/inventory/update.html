@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}"></h1>
+
+<nav th:replace = "fragments :: navigation"> </nav>
+<nav>
+    <a href="/inventory/add">Add</a>
+</nav>
+
+<table class="table">
+    <tr>
+        <th>Item name</th>
+        <!--<th>Description</th>-->
+        <th>Quantity</th>
+        <th>Minimum</th>
+        <th>Maximum</th>
+    </tr>
+
+    <tr th:each="item : ${items}">
+        <form method="post" action="/inventory/update">
+            <td>
+                <input th:name="itemName" th:value="${item.name}"/>
+            </td>
+            <td>
+                <input th:name="itemQty" th:value="${item.quantity}"/>
+            </td>
+            <td>
+                <input th:name="itemMin" th:value="${item.minimum}"/>
+            </td>
+            <td>
+                <input th:name="itemMax"  th:value="${item.maximum}"/>
+            </td>
+            <td>
+                <input type="hidden" name="itemId" th:value="${item.id}"/>
+                <input type="submit" value="Update"/>
+            </td>
+        </form>
+    </tr>
+</table>
+
+</body>
+</html>
