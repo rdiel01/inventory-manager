@@ -36,7 +36,7 @@ public class InventoryController {
     }
 
     @RequestMapping(value="add", method = RequestMethod.POST)
-    public String ProcessAddItemForm(@ModelAttribute @Valid Item newItem, Errors errors, Model model) {
+    public String processAddItemForm(@ModelAttribute @Valid Item newItem, Errors errors, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Item to Inventory");
@@ -45,5 +45,30 @@ public class InventoryController {
 
         itemDao.save(newItem);
         return "redirect:";
+    }
+
+    @RequestMapping(value="update", method = RequestMethod.GET)
+    public String update(Model model) {
+        model.addAttribute("items", itemDao.findAll());
+        model.addAttribute("title", "My inventory");
+        return "inventory/update";
+    }
+
+    @RequestMapping(value="update", method = RequestMethod.POST)
+    public String updateItem(@RequestParam (value= "itemId") int itemId,
+                             @RequestParam (value= "itemName") String itemName,
+                             @RequestParam (value= "itemQty") Integer itemQty,
+                             @RequestParam (value= "itemMin") Integer itemMin,
+                             @RequestParam (value= "itemMax") Integer itemMax,
+                             Model model) {
+
+        Item item = itemDao.findOne(itemId);
+        item.setName(itemName);
+        item.setQuantity(itemQty);
+        item.setMinimum(itemMin);
+        item.setMaximum(itemMax);
+        itemDao.save(item);
+
+        return "redirect:/inventory/update";
     }
 }
