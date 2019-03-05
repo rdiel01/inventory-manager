@@ -5,12 +5,13 @@ import com.example.inventorymanager.models.Item;
 import com.example.inventorymanager.models.Order;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 
 public class AddOrderItemForm {
 
     private Order order;
 
-    private Iterable<Item> items;
+    private ArrayList<Item> items;
 
     @NotNull
     private int orderId;
@@ -23,7 +24,7 @@ public class AddOrderItemForm {
 
     public AddOrderItemForm() {}
 
-    public AddOrderItemForm(Iterable<Item> items, Order order) {
+    public AddOrderItemForm(ArrayList<Item> items, Order order) {
         this.order = order;
         this.items = items;
     }
