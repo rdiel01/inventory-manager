@@ -38,6 +38,8 @@ public class OrderItem {
         return item;
     }
 
+    public int getItemId() { return item.getId(); }
+
     public void setItem(Item item) {
         this.item = item;
     }
