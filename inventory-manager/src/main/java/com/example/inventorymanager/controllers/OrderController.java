@@ -76,9 +76,34 @@ public class OrderController {
     public String addItem(Model model, @PathVariable int orderId) {
 
         Order order = orderDao.findOne(orderId);
-        AddOrderItemForm form = new AddOrderItemForm(itemDao.findAll(), order);
-        model.addAttribute("title","Add item to order: "+ order.getName());
-        model.addAttribute("form", form);
+
+        if (order.orderItems.isEmpty()) {
+            ArrayList<Item> items = new ArrayList<>();
+            for (Item item : itemDao.findAll()) {
+                items.add(item);
+            }
+            AddOrderItemForm form = new AddOrderItemForm(items, order);
+            model.addAttribute("title","Add item to order: "+ order.getName());
+            model.addAttribute("form", form);
+        } else {
+            ArrayList<Item> items = new ArrayList<>();
+            ArrayList<Integer> itemIds = new ArrayList<>();
+            ArrayList<Integer> orderItemIds = new ArrayList<>();
+            for (Item item : itemDao.findAll()) {
+                itemIds.add(item.getId());
+            }
+            for (OrderItem orderItem : order.orderItems) {
+                orderItemIds.add(orderItem.getItemId());
+            }
+            for (Integer ItemId : itemIds) {
+                if (!orderItemIds.contains(ItemId)) {
+                    items.add(itemDao.findOne(ItemId));
+                }
+            }
+            AddOrderItemForm form = new AddOrderItemForm(items, order);
+            model.addAttribute("title","Add item to order: "+ order.getName());
+            model.addAttribute("form", form);
+        }
         return "order/add-item";
     }
 
