@@ -11,6 +11,7 @@
     <a href="/inventory/add">Add</a>
 </nav>
 
+<div class="w-25">
 <table class="table">
     <tr>
         <th>Item name</th>
@@ -36,11 +37,12 @@
             </td>
             <td>
                 <input type="hidden" name="itemId" th:value="${item.id}"/>
-                <input type="submit" value="Update"/>
+                <input type="submit" class="btn btn-dark btn-sm" value="Update"/>
             </td>
         </form>
     </tr>
 </table>
+</div>
 
 </body>
 </html>

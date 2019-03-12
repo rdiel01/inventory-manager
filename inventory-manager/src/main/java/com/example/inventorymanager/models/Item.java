@@ -1,8 +1,10 @@
 package com.example.inventorymanager.models;
 
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.format.annotation.NumberFormat;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,16 +17,19 @@ public class Item {
     private int id;
 
     @NotNull
-    @Size(min=3, max=50)
+    @Size(min=3, max=50, message = "Must be 3 to 5 characters")
     private String name;
 
-    @NotNull
+    @NotNull(message = "Quantity required")
+    @Min(value=0, message = "Must be a positive number")
     private Integer quantity;
 
-    @NotNull
+    @NotNull(message = "Minimum Threshold required")
+    @Min(value=0, message = "Must be a positive number")
     private Integer minimum;
 
-    @NotNull
+    @NotNull(message = "Maximum Threshold required")
+    @Min(value=0, message = "Must be a positive number")
     private Integer maximum;
 
     private String description;

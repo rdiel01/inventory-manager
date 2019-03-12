@@ -9,3 +9,7 @@ nav {
 form{
     max-width:50%;
 }
+
+.error {
+    color:red;
+}

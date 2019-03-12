@@ -2,6 +2,7 @@ package com.example.inventorymanager.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -14,9 +15,12 @@ public class Order {
 
     //name is a place holder for creation date
     @NotNull
+    @Size(min=3, max=50, message = "Order name must be 3 to 50 characters.")
     public String name;
 
     public Boolean status = Boolean.TRUE;
+
+    public Boolean deleted = Boolean.FALSE;
 
 //    @GeneratedValue
 //    private Date createDate;
@@ -55,9 +59,7 @@ public class Order {
         orderItems.add(item);
     }
 
-    public void removeOrderItem(OrderItem item) {
-        orderItems.remove(item);
-    }
+    public void removeOrderItem(OrderItem item) { orderItems.remove(item); }
 
     public void deactivate() {
         this.status = Boolean.FALSE;
@@ -66,5 +68,10 @@ public class Order {
 
     public Boolean getStatus() {
         return this.status;
+    }
+
+    public void delete() {
+        this.deactivate();
+        this.deleted = Boolean.TRUE;
     }
 }

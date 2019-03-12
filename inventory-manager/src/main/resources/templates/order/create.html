@@ -8,10 +8,11 @@
 
 <nav th:replace = "fragments :: navigation"> </nav>
 
-<form method="post" style="max-width:600;" th:object="${order}">
+<form method="post" class="w-50" th:object="${order}">
     <div class="form-group">
-    <input class="form-control" th:field="*{name}"/>
-    <span th:errors="*{name}" class="error"></span>
+        <label th:for="name">Name</label>
+    <input class="form-control" placeholder="Enter an order name" th:field="*{name}"/>
+    <span th:errors="*{name}" class="alert-danger"></span>
     </div>
 
     <input type="submit" value="Create Order"/>

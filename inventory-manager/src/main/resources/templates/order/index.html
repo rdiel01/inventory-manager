@@ -6,14 +6,22 @@
 
 <h1 th:text="${title}"></h1>
 
+<div class="bg-white sticky-top">
 <nav th:replace = "fragments :: navigation"> </nav>
 <nav>
     <a href="/order/create">Create new order</a>
 </nav>
+</div>
 
 <ul>
     <li th:each="order : ${orders}">
-        <a th:href="'/order/view/'+${order.id}" th:text="${order.name}"></a>
+        <div>
+            <a th:href="'/order/view/'+${order.id}" th:text="${order.name}"></a>
+            <form method="post" action="order/delete">
+                <input type="hidden" name="orderId" th:value="${order.id}" />
+                <input type="submit" value="Delete"/>
+            </form>
+        </div>
     </li>
 </ul>
 

@@ -6,29 +6,33 @@
 
 <h1 th:text="${title}"></h1>
 
+<div class="bg-white sticky-top">
 <nav th:replace = "fragments :: navigation"> </nav>
 <nav>
     <a href="/inventory/add">Add</a> |
     <a href="/inventory/update">Update</a>
 </nav>
+</div>
 
+<div class="w-25">
 <table class="table">
     <tr>
-        <th>Item name</th>
+        <th class="text-left">Name</th>
         <!--<th>Description</th>-->
         <th>Quantity</th>
-        <th>Minimum</th>
-        <th>Maximum</th>
+        <!--<th>Minimum</th>-->
+        <!--<th>Maximum</th>-->
     </tr>
 
     <tr th:each="item : ${items}">
-        <td th:text="${item.name}"></td>
+        <td class="text-left" th:text="${item.name}"></td>
         <!--<td th:text="${item.description}">n/a</td>-->
         <td th:text="${item.quantity}"></td>
-        <td th:text="${item.minimum}"></td>
-        <td th:text="${item.maximum}"></td>
+        <!--<td th:text="${item.minimum}"></td>-->
+        <!--<td th:text="${item.maximum}"></td>-->
     </tr>
 </table>
+</div>
 
 </body>
 </html>
