@@ -32,7 +32,7 @@ public class OrderController {
     @Autowired
     OrderDao orderDao;
 
-    @RequestMapping(value="")
+    @RequestMapping(value = "")
     public String index(Model model) {
         List<Order> orders = orderDao.findByStatus(TRUE);
 //        ArrayList<Order> orders = new ArrayList<Order>();
@@ -42,20 +42,21 @@ public class OrderController {
 //            }
 //        }
         model.addAttribute("title", "View Orders");
-        model.addAttribute("orders",orders);
+        model.addAttribute("orders", orders);
         return "order/index";
     }
 
-    @RequestMapping(value="create", method = RequestMethod.GET)
+    @RequestMapping(value = "create", method = RequestMethod.GET)
     public String create(Model model) {
         model.addAttribute(new Order());
         model.addAttribute("title", "Create new order");
         return "order/create";
     }
 
-    @RequestMapping(value="create", method = RequestMethod.POST)
+    @RequestMapping(value = "create", method = RequestMethod.POST)
     public String create(Model model, @ModelAttribute @Valid Order order, Errors errors) {
-        if(errors.hasErrors()){
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Create new order");
             model.addAttribute("order", order);
             return "order/create";
         }
@@ -63,16 +64,16 @@ public class OrderController {
         return "redirect:view/" + order.getId();
     }
 
-    @RequestMapping(value="view/{orderId}", method = RequestMethod.GET)
-    public String viewOrder(Model model, @PathVariable int orderId){
+    @RequestMapping(value = "view/{orderId}", method = RequestMethod.GET)
+    public String viewOrder(Model model, @PathVariable int orderId) {
         Order order = orderDao.findOne(orderId);
         model.addAttribute("title", order.getName());
-        model.addAttribute("order",order);
+        model.addAttribute("order", order);
         model.addAttribute("orderItems", order.getOrderItems());
         return "order/view";
     }
 
-    @RequestMapping(value ="{orderId}/add-item", method = RequestMethod.GET)
+    @RequestMapping(value = "{orderId}/add-item", method = RequestMethod.GET)
     public String addItem(Model model, @PathVariable int orderId) {
 
         Order order = orderDao.findOne(orderId);
@@ -83,7 +84,7 @@ public class OrderController {
                 items.add(item);
             }
             AddOrderItemForm form = new AddOrderItemForm(items, order);
-            model.addAttribute("title","Add item to order: "+ order.getName());
+            model.addAttribute("title", "Add item to order: " + order.getName());
             model.addAttribute("form", form);
         } else {
             ArrayList<Item> items = new ArrayList<>();
@@ -101,16 +102,16 @@ public class OrderController {
                 }
             }
             AddOrderItemForm form = new AddOrderItemForm(items, order);
-            model.addAttribute("title","Add item to order: "+ order.getName());
+            model.addAttribute("title", "Add item to order: " + order.getName());
             model.addAttribute("form", form);
         }
         return "order/add-item";
     }
 
-    @RequestMapping(value ="add-item", method = RequestMethod.POST)
+    @RequestMapping(value = "add-item", method = RequestMethod.POST)
     public String addItem(Model model, @ModelAttribute @Valid AddOrderItemForm form, Errors errors) {
 
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
             model.addAttribute("form", form);
             return "order/add-item";
         }
@@ -128,8 +129,8 @@ public class OrderController {
 
     @RequestMapping(value = "update-item", method = RequestMethod.POST)
     public String updateOrderItem(@RequestParam(value = "orderItemQty") Integer orderItemQty,
-            @RequestParam(value = "orderItemId") int orderItemId,
-            @RequestParam(value = "orderId") int orderId) {
+                                  @RequestParam(value = "orderItemId") int orderItemId,
+                                  @RequestParam(value = "orderId") int orderId) {
 
         OrderItem orderItem = orderItemDao.findOne(orderItemId);
         orderItem.setOrderQty(orderItemQty);
@@ -138,7 +139,7 @@ public class OrderController {
         return "redirect:view/" + orderId;
     }
 
-    @RequestMapping(value = "remove-item", method =RequestMethod.POST)
+    @RequestMapping(value = "remove-item", method = RequestMethod.POST)
     public String removeOrderItem(@RequestParam(value = "orderItemId") int orderItemId,
                                   @RequestParam(value = "orderId") int orderId) {
         Order order = orderDao.findOne(orderId);
@@ -166,8 +167,8 @@ public class OrderController {
         return "redirect:/inventory";
     }
 
-    @RequestMapping(value="autofill", method = RequestMethod.POST)
-    public String autofillOrder(@RequestParam(value= "orderId") int orderId) {
+    @RequestMapping(value = "autofill", method = RequestMethod.POST)
+    public String autofillOrder(@RequestParam(value = "orderId") int orderId) {
         Order order = orderDao.findOne(orderId);
 
         for (Item item : itemDao.findAll()) {
@@ -182,4 +183,13 @@ public class OrderController {
         return "redirect:view/" + orderId;
     }
 
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
+    public String delete(@RequestParam(value = "orderId") int orderId) {
+        Order order = orderDao.findOne(orderId);
+
+        order.delete();
+        orderDao.save(order);
+
+        return "redirect:";
+    }
 }
